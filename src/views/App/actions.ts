@@ -1,0 +1,4 @@
+export enum AppActions {
+  SHOW_LOADING = 'APP/SHOW_LOADING',
+  CLOSE_LOADING = 'APP/CLOSE_LOADING',
+}
