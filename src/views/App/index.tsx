@@ -1,4 +1,7 @@
-import './index.css'
+import './index.scss'
+import 'antd/dist/antd.css'
+
+import { Button } from 'antd'
 
 import logo from '../../logo.svg'
 
@@ -18,6 +21,7 @@ function App() {
         >
           Learn React
         </a>
+        <Button type="primary">Button</Button>
       </header>
     </div>
   )
