@@ -42,6 +42,6 @@ export default appSlice.reducer
 
 export function fetchCount(amount = 1) {
   return new Promise<{ data: number }>((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 5000)
+    setTimeout(() => resolve({ data: amount }), 3000)
   )
 }

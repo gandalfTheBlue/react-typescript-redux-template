@@ -1,40 +1,22 @@
 import './App.scss'
 
-import { Button } from 'antd'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { Layout, Spin } from 'antd'
+import { useSelector } from 'react-redux'
 
-import logo from '../logo.svg'
-import { incrementByAmountAsync, selectLoading } from './appSlice'
+import { selectLoading } from './appSlice'
+
+const { Header, Footer, Content } = Layout
 
 function App() {
-  const dispatch = useDispatch()
   const loading = useSelector(selectLoading)
 
-  useEffect(() => {
-    dispatch(incrementByAmountAsync(5))
-  }, [dispatch])
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        {loading && (
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        )}
-        <Button type="primary">Button</Button>
-      </header>
-    </div>
+    <Layout className="app">
+      <Header>Header</Header>
+      <Content>Content</Content>
+      <Footer>Footer</Footer>
+      <Spin spinning={loading} size="large" />
+    </Layout>
   )
 }
 
