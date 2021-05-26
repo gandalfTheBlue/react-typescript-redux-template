@@ -3,12 +3,21 @@ import 'antd/dist/antd.css'
 
 import { Button } from 'antd'
 
-import logo from '../../logo.svg'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store'
+import logo from '../logo.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, selectLoading, showLoading } from './appSlice'
+import { useEffect } from 'react'
 
 function App() {
-  const { loading } = useSelector((state: RootState) => state.app)
+  const dispatch = useDispatch()
+  const loading = useSelector(selectLoading)
+
+  useEffect(() => {
+    dispatch(showLoading())
+    setTimeout(() => {
+      dispatch(hideLoading())
+    }, 5000)
+  }, [dispatch])
 
   return (
     <div className="App">
