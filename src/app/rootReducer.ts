@@ -1,11 +1,11 @@
-import { combineReducers } from '@reduxjs/toolkit'
+import { combineReducers } from '@reduxjs/toolkit';
 
-import appReducer from './appSlice'
+import appReducer from './appSlice';
 
 const rootReducer = combineReducers({
   app: appReducer,
-})
+});
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 
-export default rootReducer
+export default rootReducer;

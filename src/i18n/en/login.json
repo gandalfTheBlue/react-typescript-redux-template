@@ -1,0 +1,12 @@
+{
+  "login": {
+    "username": {
+      "title": "Username",
+      "required": "Please input your username!"
+    },
+    "password": {
+      "title": "Password",
+      "required": "Please input your password!"
+    }
+  }
+}

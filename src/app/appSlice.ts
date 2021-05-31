@@ -1,47 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from './rootReducer'
-import { createAction } from 'redux-actions'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { LoginForm, User } from '../models/appModel';
+import appService from '../service/appService';
+import { RootState } from './rootReducer';
 
 interface AppState {
-  loading: boolean
+  loading: boolean;
+  user?: User;
 }
 
 const initialState: AppState = {
   loading: false,
-}
+};
 
-export const incrementByAmountAsync = createAction(
-  'app/incrementByAmount',
-  (databases: any) => fetchCount(2),
-  () => ({
-    noMask: false,
-  })
-)
+export const userLogin = createAsyncThunk(
+  'app/userLogin',
+  (loginForm: LoginForm) => appService.login(loginForm)
+);
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
     showLoading: (state) => {
-      state.loading = true
+      state.loading = true;
     },
     hideLoading: (state) => {
-      state.loading = false
-    },
-    incrementByAmount: (state) => {
-      state.loading = false
+      state.loading = false;
     },
   },
-})
+  extraReducers: (builder) => {
+    builder.addCase(
+      userLogin.fulfilled,
+      (state, { payload }: PayloadAction<User>) => {
+        state.user = payload;
+      }
+    );
+  },
+});
 
-export const { showLoading, hideLoading } = appSlice.actions
+export const { showLoading, hideLoading } = appSlice.actions;
 
-export const selectLoading = (state: RootState) => state.app.loading
+export const selectLoading = (state: RootState) => state.app.loading;
+export const selectUser = (state: RootState) => state.app.user;
 
-export default appSlice.reducer
-
-export function fetchCount(amount = 1) {
-  return new Promise<{ data: number }>((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 3000)
-  )
-}
+export default appSlice.reducer;

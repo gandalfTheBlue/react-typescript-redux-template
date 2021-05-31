@@ -1,21 +1,25 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import thunk from 'redux-thunk'
+import {
+  Action,
+  configureStore,
+  getDefaultMiddleware,
+  ThunkAction,
+} from '@reduxjs/toolkit';
 
-import loadingMiddleware from '../middleware/loading'
-import rootReducer from './rootReducer'
+import loadingMiddleware from '../middleware/loading';
+import rootReducer from './rootReducer';
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [
-    ...getDefaultMiddleware({
-      // To allow promise as payload for loading middleware
-      serializableCheck: false,
-    }),
-    thunk,
-    loadingMiddleware,
-  ],
-})
+  middleware: [...getDefaultMiddleware(), loadingMiddleware],
+});
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
-export default store
+export default store;
